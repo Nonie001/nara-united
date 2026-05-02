@@ -91,7 +91,7 @@ export function Header() {
 
         <div className="flex items-center gap-2 animate-fade-in-right">
           <Link
-            href="/fixtures"
+            href="/tickets"
             className="hidden md:inline-flex items-center gap-2 rounded-full border border-nara-gold/60 px-4 py-2 text-sm font-bold text-nara-gold hover:bg-nara-gold hover:text-nara-green-deeper transition shine-on-hover group"
           >
             ตั๋วเข้าชม

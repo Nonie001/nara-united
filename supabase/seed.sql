@@ -1,57 +1,138 @@
--- Optional sample data. Run after 0001_init.sql.
+-- ==========================================================================
+-- Nara United — Mock / seed data  (run after 0001_init.sql)
+-- ==========================================================================
 
-insert into public.stadiums (id, name_th, capacity, address_th)
+-- ---------- Stadium ----------
+insert into public.stadiums (id, name_th, capacity, address_th, latitude, longitude)
 values (
   '00000000-0000-0000-0000-000000000001',
   'สนามกีฬากลางจังหวัดนราธิวาส',
   10000,
-  'อ.เมือง จ.นราธิวาส'
+  'ถ.พิชิตบำรุง ต.บางนาค อ.เมือง จ.นราธิวาส 96000',
+  6.4318, 101.8236
 ) on conflict do nothing;
 
-insert into public.players (slug, name_th, jersey_number, position, nationality, is_active)
+-- ---------- Staff ----------
+insert into public.staff (name_th, role_th, bio_th, display_order, is_active)
 values
-  ('player-1', 'นักเตะ ตัวอย่าง 1', 1, 'GK', 'ไทย', true),
-  ('player-2', 'นักเตะ ตัวอย่าง 2', 4, 'DF', 'ไทย', true),
-  ('player-3', 'นักเตะ ตัวอย่าง 3', 8, 'MF', 'ไทย', true),
-  ('player-4', 'นักเตะ ตัวอย่าง 4', 9, 'FW', 'ไทย', true),
-  ('player-5', 'นักเตะ ตัวอย่าง 5', 10, 'FW', 'ไทย', true)
+  ('อาบีดิน มะนอ',       'หัวหน้าผู้ฝึกสอน',        'ประสบการณ์ฝึกสอนกว่า 15 ปีในฟุตบอลภาคใต้', 1, true),
+  ('สมชาย รักษ์ชาติ',    'ผู้ช่วยผู้ฝึกสอน',         'อดีตนักเตะทีมชาติไทย รุ่น U-23',            2, true),
+  ('ยะโก๊บ สะแลแม',     'โค้ชผู้รักษาประตู',         'เชี่ยวชาญด้านเทคนิคการเซฟลูก',              3, true),
+  ('วีรชาติ แซ่เตีย',    'โค้ชฟิตเนส',                'ผู้เชี่ยวชาญด้านสมรรถภาพร่างกาย',           4, true),
+  ('อาหมัด บินอับดุลเลาะ','โค้ชเยาวชน',               'ดูแลการพัฒนานักเตะอายุต่ำกว่า 18 ปี',        5, true)
+on conflict do nothing;
+
+-- ---------- Players ----------
+insert into public.players (slug, name_th, jersey_number, position, nationality, height_cm, weight_kg, is_active, bio_th)
+values
+  -- GK
+  ('karim-mustopha',    'การีม มุสตอฟา',    1,  'GK', 'ไทย', 186, 82, true, 'ผู้รักษาประตูตัวหลัก ฝีมือเยี่ยมในการเซฟจุดโทษ'),
+  ('hafiz-saenae',      'ฮาฟิซ แสนแอ',     22, 'GK', 'ไทย', 182, 78, true, 'ผู้รักษาประตูสำรอง'),
+  -- DF
+  ('sulaiman-dolah',    'สุไลมาน โดลา',     2,  'DF', 'ไทย', 178, 74, true, 'แบ็คขวาเจ้าของขาเร็ว'),
+  ('nasser-yusoh',      'นัสเซอร์ ยูโซะ',   3,  'DF', 'ไทย', 181, 77, true, 'เซ็นเตอร์แบ็คกัปตันทีม'),
+  ('abdulaziz-mano',    'อับดุลอาซิซ มาโน', 5,  'DF', 'ไทย', 179, 75, true, 'เซ็นเตอร์แบ็คประสบการณ์สูง'),
+  ('amran-che',         'อัมรัน เจ๊ะ',      6,  'DF', 'ไทย', 175, 70, true, 'แบ็คซ้ายทรงโจมตี'),
+  ('faisal-waemae',     'ฟัยศ็อล แวแม',     15, 'DF', 'ไทย', 180, 76, true, 'กองหลังอเนกประสงค์'),
+  -- MF
+  ('zakariya-salee',    'ซาการียา สาเล็',   7,  'MF', 'ไทย', 172, 68, true, 'กองกลางสร้างเกม ครองบอลเก่ง'),
+  ('ilham-bueraheng',   'อิลฮัม บือราเฮง',  8,  'MF', 'ไทย', 170, 67, true, 'กองกลางเบอร์ 8 แรงกล้า'),
+  ('ridwan-hayeemasae', 'ริฎวาน ฮายีมะแซ',  14, 'MF', 'ไทย', 174, 69, true, 'กองกลางรักษาและโจมตี'),
+  ('shahril-dolah',     'ชาห์ริล โดลาห์',   16, 'MF', 'ไทย', 171, 66, true, 'ปีกขวา วิ่งเร็ว'),
+  ('aiman-mamah',       'ไอมัน มามะห์',     18, 'MF', 'ไทย', 169, 65, true, 'ปีกซ้าย มีลูกเตะมุม'),
+  -- FW
+  ('anwar-yusof',       'อันวาร์ ยูโซฟ',    9,  'FW', 'ไทย', 176, 72, true, 'กองหน้าตัวเป้า ทำประตูฝีมือดี ท็อปสกอเรอร์ 2024-25'),
+  ('haziq-dolah',       'ฮาซิก โดลาห์',     10, 'FW', 'ไทย', 173, 68, true, 'กองหน้าเบอร์ 10 ทักษะสูง เดินบอลเก่ง'),
+  ('ismail-jehnae',     'อิสมาแอ เยะแน',    11, 'FW', 'ไทย', 171, 67, true, 'กองหน้าตัวสำรอง ขยันกดดัน'),
+  ('mukhlis-yusoh',     'มุคลิส ยูโซะ',     23, 'FW', 'ไทย', 175, 71, true, 'กองหน้าหนุ่มไฟแรง')
 on conflict (slug) do nothing;
 
-insert into public.matches (season, competition, kickoff_at, opponent, is_home, status, venue)
+-- ---------- Matches (Season 2025-26) ----------
+insert into public.matches (season, competition, round, kickoff_at, opponent, is_home, status, venue, home_score, away_score, attendance)
 values
-  ('2025-26', 'Thai League 3', now() + interval '3 days', 'ตัวอย่าง เอฟซี', true, 'upcoming', 'สนามกีฬากลางนราธิวาส'),
-  ('2025-26', 'Thai League 3', now() - interval '4 days', 'ตัวอย่าง ยูไนเต็ด', false, 'finished', 'เยือน')
+  -- ผลที่ผ่านมา
+  ('2025-26','Thai League 3 South','นัดที่ 1', now()-interval '28 days', 'ยะลา ยูไนเต็ด',          true,  'finished','สนามกีฬากลางนราธิวาส', 3, 0, 3200),
+  ('2025-26','Thai League 3 South','นัดที่ 2', now()-interval '21 days', 'ปัตตานี เอฟซี',           false, 'finished','สนามปัตตานี',            2, 2, 2800),
+  ('2025-26','Thai League 3 South','นัดที่ 3', now()-interval '14 days', 'สงขลา ยูไนเต็ด',          true,  'finished','สนามกีฬากลางนราธิวาส', 1, 0, 4100),
+  ('2025-26','Thai League 3 South','นัดที่ 4', now()-interval '7 days',  'สตูล เอฟซี',              false, 'finished','สนามสตูล',               2, 1, 1900),
+  ('2025-26','Thai League 3 South','นัดที่ 5', now()-interval '3 days',  'ตรัง ยูไนเต็ด',           true,  'finished','สนามกีฬากลางนราธิวาส', 0, 0, 3600),
+  -- โปรแกรมถัดไป
+  ('2025-26','Thai League 3 South','นัดที่ 6', now()+interval '4 days',  'พัทลุง เอฟซี',            false, 'upcoming','สนามพัทลุง',             null, null, null),
+  ('2025-26','Thai League 3 South','นัดที่ 7', now()+interval '11 days', 'กระบี่ ยูไนเต็ด',         true,  'upcoming','สนามกีฬากลางนราธิวาส', null, null, null),
+  ('2025-26','Thai League 3 South','นัดที่ 8', now()+interval '18 days', 'ภูเก็ต เอฟซี',            false, 'upcoming','สนามภูเก็ต',             null, null, null),
+  ('2025-26','Thai League 3 South','นัดที่ 9', now()+interval '25 days', 'ระนอง เอฟซี',             true,  'upcoming','สนามกีฬากลางนราธิวาส', null, null, null),
+  -- ถ้วย
+  ('2025-26','ไทยแลนด์ แชมเปียนส์คัพ','รอบ 16 ทีม', now()+interval '32 days','ชลบุรี เอฟซี', true, 'upcoming','สนามกีฬากลางนราธิวาส', null, null, null)
 on conflict do nothing;
 
-update public.matches
-set home_score = 2, away_score = 1
-where status = 'finished' and home_score is null;
-
+-- ---------- Standings (ลีก Thai League 3 South 2025-26) ----------
 insert into public.standings (season, team_name, position, played, won, drawn, lost, goals_for, goals_against, goal_difference, points, source)
 values
-  ('2025-26', 'Nara United', 1, 5, 4, 1, 0, 12, 4, 8, 13, 'manual'),
-  ('2025-26', 'ตัวอย่าง เอฟซี', 2, 5, 3, 1, 1, 9, 5, 4, 10, 'manual'),
-  ('2025-26', 'ตัวอย่าง ยูไนเต็ด', 3, 5, 2, 2, 1, 7, 6, 1, 8, 'manual')
+  ('2025-26','Nara United',       1,  5, 3, 2, 0, 8,  2,  6, 11, 'manual'),
+  ('2025-26','สงขลา ยูไนเต็ด',   2,  5, 3, 1, 1, 10, 4,  6, 10, 'manual'),
+  ('2025-26','ยะลา ยูไนเต็ด',    3,  5, 3, 1, 1, 8,  5,  3, 10, 'manual'),
+  ('2025-26','ปัตตานี เอฟซี',    4,  5, 2, 2, 1, 7,  5,  2,  8, 'manual'),
+  ('2025-26','กระบี่ ยูไนเต็ด',  5,  5, 2, 1, 2, 6,  7, -1,  7, 'manual'),
+  ('2025-26','ภูเก็ต เอฟซี',     6,  5, 1, 3, 1, 5,  6, -1,  6, 'manual'),
+  ('2025-26','พัทลุง เอฟซี',     7,  5, 1, 2, 2, 4,  7, -3,  5, 'manual'),
+  ('2025-26','ตรัง ยูไนเต็ด',    8,  5, 1, 1, 3, 3,  8, -5,  4, 'manual'),
+  ('2025-26','สตูล เอฟซี',       9,  5, 0, 2, 3, 2,  9, -7,  2, 'manual'),
+  ('2025-26','ระนอง เอฟซี',      10, 5, 0, 2, 3, 1, 11,-10,  2, 'manual')
 on conflict (season, team_name) do nothing;
 
-insert into public.sponsors (name, tier, display_order, is_active)
+-- ---------- Sponsors ----------
+insert into public.sponsors (name, tier, website_url, display_order, is_active)
 values
-  ('สปอนเซอร์หลัก', 'main', 1, true),
-  ('สปอนเซอร์อย่างเป็นทางการ', 'official', 2, true),
-  ('พาร์ทเนอร์', 'partner', 3, true)
+  ('ธนาคารอิสลามแห่งประเทศไทย', 'main',     'https://www.ibank.co.th',     1, true),
+  ('การท่องเที่ยวแห่งประเทศไทย','official', 'https://www.tourismthailand.org', 2, true),
+  ('น้ำดื่มตราช้าง',             'official', null,                            3, true),
+  ('บริษัท เดลต้าฯ จำกัด',       'partner',  null,                            4, true),
+  ('ร้านอาหาร บ้านนรา',           'partner',  null,                            5, true),
+  ('โรงแรม อิมพีเรียล นราธิวาส', 'partner',  null,                            6, true)
 on conflict do nothing;
 
-insert into public.staff (name_th, role_th, display_order)
-values
-  ('โค้ชใหญ่', 'หัวหน้าผู้ฝึกสอน', 1),
-  ('ผู้ช่วยโค้ช', 'ผู้ช่วยผู้ฝึกสอน', 2),
-  ('โค้ชผู้รักษาประตู', 'โค้ชผู้รักษาประตู', 3)
-on conflict do nothing;
-
+-- ---------- News ----------
 insert into public.news (slug, title_th, excerpt_th, content_html, category, is_published, published_at)
 values
-  ('welcome', 'ยินดีต้อนรับสู่เว็บไซต์ใหม่ของ Nara United',
-   'เปิดตัวเว็บไซต์ทางการของสโมสร พร้อมข่าวสาร โปรแกรม และข้อมูลนักเตะ',
-   '<p>ยินดีต้อนรับเข้าสู่เว็บไซต์ใหม่ของสโมสรฟุตบอล Nara United</p>',
-   'announcement', true, now())
+  ('welcome-new-website',
+   'เปิดตัวเว็บไซต์ทางการใหม่ของ Nara United',
+   'สโมสรฟุตบอล Nara United เปิดตัวเว็บไซต์ทางการแห่งใหม่ พร้อมระบบข่าวสาร โปรแกรมการแข่งขัน และข้อมูลนักเตะครบครัน',
+   '<h2>ยินดีต้อนรับสู่เว็บไซต์ใหม่</h2><p>สโมสรฟุตบอล Nara United (กอและพิฆาต) ได้เปิดตัวเว็บไซต์ทางการแห่งใหม่อย่างเป็นทางการแล้ว เพื่อให้แฟนบอลชาวนราธิวาสและทั่วประเทศได้ติดตามข่าวสาร โปรแกรมการแข่งขัน ผลบอล และข้อมูลนักเตะได้อย่างสะดวกรวดเร็ว</p><p>เราตั้งใจพัฒนาเว็บไซต์นี้ให้เป็นบ้านดิจิทัลของแฟนบอลกอและพิฆาตทุกคน</p>',
+   'announcement', true, now()-interval '2 days'),
+
+  ('season-2025-26-preview',
+   'พรีวิวฤดูกาล 2025/26 — ปีแห่งการพิสูจน์ของกอและพิฆาต',
+   'เปิดโปรแกรมฤดูกาล Thai League 3 South 2025/26 พร้อมเป้าหมายเลื่อนชั้น',
+   '<h2>ฤดูกาล 2025/26</h2><p>สโมสรฯ ตั้งเป้าหมายชัดเจน — ท็อป 3 และเลื่อนชั้นสู่ Thai League 2</p><p>ฤดูกาลนี้จะมีการแข่งขันทั้งหมด 18 นัด ในรูปแบบพบกันหมด โดย Nara United จะลงสนามเหย้าที่สนามกีฬากลางจังหวัดนราธิวาส</p>',
+   'announcement', true, now()-interval '5 days'),
+
+  ('win-over-yala-3-0',
+   'กอและพิฆาตถล่มยะลา 3-0 ในนัดเปิดฤดูกาล',
+   'นัดเปิดฤดูกาล Nara United คว้าชัย 3-0 เหนือยะลา ยูไนเต็ด ต่อหน้าแฟนบอลเกือบ 3,200 คน',
+   '<p>ผลการแข่งขัน <strong>Nara United 3-0 ยะลา ยูไนเต็ด</strong></p><p>อันวาร์ ยูโซฟ ทำประตูสองลูก และฮาซิก โดลาห์ ปิดท้ายอีกหนึ่งลูก ช่วยให้ทีมเอาชนะยะลาได้อย่างสบาย ๆ ต่อหน้าแฟนบอลเกือบ 3,200 คนที่สนามกีฬากลางนราธิวาส</p>',
+   'match', true, now()-interval '28 days'),
+
+  ('squad-update-season-2025',
+   'รายชื่อนักเตะประจำฤดูกาล 2025/26 ครบสมบูรณ์แล้ว',
+   'สโมสรประกาศรายชื่อนักเตะ 25 คน สำหรับฤดูกาล 2025/26 พร้อมหน้าใหม่ที่น่าจับตา',
+   '<p>คณะผู้บริหารสโมสรได้ประกาศรายชื่อนักเตะ 25 คน สำหรับฤดูกาล 2025/26 อย่างเป็นทางการแล้ว</p><p>มีนักเตะใหม่ที่น่าจับตามองหลายคนที่เซ็นสัญญาเข้ามาเสริมความแข็งแกร่งให้ทีม</p>',
+   'transfer', true, now()-interval '35 days'),
+
+  ('community-ramadan-2026',
+   'Nara United ร่วมกิจกรรมชุมชน มอบอาหารในเดือนรอมฎอน',
+   'นักเตะและสตาฟร่วมกันมอบอาหารแก่ผู้ขาดแคลนในจังหวัดนราธิวาสช่วงเดือนรอมฎอน',
+   '<p>สโมสรฟุตบอล Nara United ร่วมกับผู้สนับสนุนจัดกิจกรรมมอบอาหารให้ผู้ขาดแคลนในจังหวัดนราธิวาส เนื่องในโอกาสเดือนรอมฎอน โดยมีนักเตะและทีมงานสโมสรเข้าร่วมกิจกรรมด้วย</p>',
+   'community', true, now()-interval '10 days'),
+
+  ('draw-pattani-2-2',
+   'เดิมพันสูง! Nara เจ๊าปัตตานี 2-2 นัดดาร์บี้ภาคใต้',
+   'นัดดาร์บี้ภาคใต้ระหว่าง Nara United กับ ปัตตานี เอฟซี จบด้วยสกอร์ 2-2 ในบรรยากาศเดือดที่ปัตตานี',
+   '<p>ผลการแข่งขัน <strong>ปัตตานี เอฟซี 2-2 Nara United</strong></p><p>แม้จะเป็นฝ่ายตามหลังในครึ่งแรก แต่ทีมสามารถพลิกมาตีเสมอได้ในนาทีท้ายเกมด้วยลูกยิงของอันวาร์ ยูโซฟ</p>',
+   'match', true, now()-interval '21 days'),
+
+  ('ticket-info-home-match',
+   'ข้อมูลการซื้อตั๋วนัดเหย้า — ฤดูกาล 2025/26',
+   'ราคาตั๋ว วิธีซื้อ และโปรโมชันสำหรับแฟนบอลที่ต้องการมาเชียร์ที่สนาม',
+   '<h2>ราคาตั๋ว</h2><ul><li>อัฒจันทร์หลัก: 150 บาท</li><li>อัฒจันทร์ข้าง: 80 บาท</li><li>เด็กต่ำกว่า 12 ปี: ฟรี</li></ul><p>สามารถซื้อตั๋วได้ที่สำนักงานสโมสร หรือที่ประตูสนามก่อนการแข่งขัน 2 ชั่วโมง</p>',
+   'announcement', true, now()-interval '15 days')
 on conflict (slug) do nothing;
