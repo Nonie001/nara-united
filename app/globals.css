@@ -362,40 +362,52 @@ body {
 }
 
 /*
-  Realistic bouncing physics:
-    - Falling segments use ease-in (gravity acceleration)
-    - Rising segments use ease-out (deceleration to peak)
-    - Bounce height decays: 110 -> 75 -> 45 -> 25 -> roll
-    - Then smooth orbit (ease-in-out) around the crest, back to start
+  Realistic bouncing physics (gravity ≈ parabolic):
+    - Fall uses ease-in mimicking y = t² acceleration
+    - Rise uses mirror ease-out for deceleration to peak
+    - Heights decay geometrically (e ≈ 0.5): 200 -> 100 -> 50 -> 22 -> roll
+    - Time between bounces also shortens (real-world geometric decay)
+    - Horizontal velocity stays roughly constant (~6.5 px per 1% time)
+    - SQUASH-and-STRETCH: ball flattens on impact (scaleY 0.7, scaleX 1.25)
+    - After settling, smooth orbit (ease-in-out) around the crest back to start
 */
 @keyframes hero-ball-path {
-  /* Drop in from upper-right */
-  0%   { transform: translate(220px, -280px); animation-timing-function: cubic-bezier(0.5, 0.05, 0.9, 0.5); }
-  /* Land 1 (ground line y=160) */
-  10%  { transform: translate(180px, 160px); animation-timing-function: cubic-bezier(0.1, 0.7, 0.3, 1); }
-  /* Peak 1 (high) */
-  16%  { transform: translate(140px, 50px); animation-timing-function: cubic-bezier(0.5, 0.05, 0.9, 0.5); }
-  /* Land 2 */
-  22%  { transform: translate(100px, 160px); animation-timing-function: cubic-bezier(0.1, 0.7, 0.3, 1); }
-  /* Peak 2 */
-  27%  { transform: translate(70px, 85px); animation-timing-function: cubic-bezier(0.5, 0.05, 0.9, 0.5); }
-  /* Land 3 */
-  32%  { transform: translate(35px, 160px); animation-timing-function: cubic-bezier(0.1, 0.7, 0.3, 1); }
-  /* Peak 3 (small) */
-  36%  { transform: translate(15px, 115px); animation-timing-function: cubic-bezier(0.5, 0.05, 0.9, 0.5); }
-  /* Land 4 (settle) */
-  40%  { transform: translate(-5px, 160px); animation-timing-function: cubic-bezier(0.1, 0.6, 0.3, 1); }
-  /* Tiny micro-bounce */
-  42%  { transform: translate(-20px, 145px); animation-timing-function: cubic-bezier(0.5, 0.05, 0.9, 0.5); }
-  44%  { transform: translate(-35px, 160px); animation-timing-function: linear; }
-  /* Roll along ground to left edge */
-  50%  { transform: translate(-180px, 160px); animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1); }
-  /* Orbit CCW around crest */
-  60%  { transform: translate(-200px, 0); animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1); }
-  70%  { transform: translate(-140px, -150px); animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1); }
-  80%  { transform: translate(0, -200px); animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1); }
-  90%  { transform: translate(160px, -160px); animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1); }
-  100% { transform: translate(220px, -280px); }
+  /* === DROP from upper-right (long fall, gravity accel) === */
+  0%   { transform: translate(240px, -300px) scale(1, 1); animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+
+  /* === BOUNCE 1: peak 200, lands at ground y=160 === */
+  11%  { transform: translate(190px, 158px) scale(1.25, 0.7);  animation-timing-function: cubic-bezier(0.2, 0.8, 0.4, 1); }
+  12%  { transform: translate(185px, 155px) scale(1, 1);        animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  17%  { transform: translate(155px, -40px) scale(0.95, 1.05);  animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+
+  /* === BOUNCE 2: peak ~85, half-height === */
+  22%  { transform: translate(125px, 158px) scale(1.2, 0.78);   animation-timing-function: cubic-bezier(0.2, 0.8, 0.4, 1); }
+  23%  { transform: translate(120px, 156px) scale(1, 1);        animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  27%  { transform: translate(95px, 50px) scale(0.97, 1.03);    animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+
+  /* === BOUNCE 3: peak ~120 from ground (small) === */
+  31%  { transform: translate(70px, 158px) scale(1.15, 0.82);   animation-timing-function: cubic-bezier(0.2, 0.8, 0.4, 1); }
+  32%  { transform: translate(67px, 156px) scale(1, 1);         animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  35%  { transform: translate(50px, 110px) scale(0.98, 1.02);   animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+
+  /* === BOUNCE 4: micro hop, peak ~140 === */
+  38%  { transform: translate(35px, 158px) scale(1.1, 0.88);    animation-timing-function: cubic-bezier(0.2, 0.8, 0.4, 1); }
+  39%  { transform: translate(33px, 156px) scale(1, 1);         animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  41%  { transform: translate(22px, 140px) scale(0.99, 1.01);   animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+
+  /* === SETTLE (kiss the ground) === */
+  43%  { transform: translate(10px, 158px) scale(1.05, 0.93);   animation-timing-function: cubic-bezier(0.2, 0.8, 0.4, 1); }
+  45%  { transform: translate(0, 156px) scale(1, 1);            animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1); }
+
+  /* === ROLL along ground to left edge === */
+  52%  { transform: translate(-190px, 156px) scale(1, 1);       animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1); }
+
+  /* === Smooth ORBIT counter-clockwise around the crest === */
+  62%  { transform: translate(-210px, 10px) scale(1, 1);        animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1); }
+  72%  { transform: translate(-150px, -160px) scale(1, 1);      animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1); }
+  82%  { transform: translate(0, -210px) scale(1, 1);           animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1); }
+  92%  { transform: translate(170px, -170px) scale(1, 1);       animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1); }
+  100% { transform: translate(240px, -300px) scale(1, 1); }
 }
 
 /* Smaller crest on mobile/tablet -> tighter ball trajectory */
@@ -409,22 +421,27 @@ body {
 }
 
 @keyframes hero-ball-path-md {
-  0%   { transform: translate(175px, -230px); animation-timing-function: cubic-bezier(0.5, 0.05, 0.9, 0.5); }
-  10%  { transform: translate(145px, 130px); animation-timing-function: cubic-bezier(0.1, 0.7, 0.3, 1); }
-  16%  { transform: translate(110px, 35px); animation-timing-function: cubic-bezier(0.5, 0.05, 0.9, 0.5); }
-  22%  { transform: translate(78px, 130px); animation-timing-function: cubic-bezier(0.1, 0.7, 0.3, 1); }
-  27%  { transform: translate(55px, 65px); animation-timing-function: cubic-bezier(0.5, 0.05, 0.9, 0.5); }
-  32%  { transform: translate(28px, 130px); animation-timing-function: cubic-bezier(0.1, 0.7, 0.3, 1); }
-  36%  { transform: translate(12px, 90px); animation-timing-function: cubic-bezier(0.5, 0.05, 0.9, 0.5); }
-  40%  { transform: translate(-5px, 130px); animation-timing-function: cubic-bezier(0.1, 0.6, 0.3, 1); }
-  42%  { transform: translate(-18px, 118px); animation-timing-function: cubic-bezier(0.5, 0.05, 0.9, 0.5); }
-  44%  { transform: translate(-30px, 130px); animation-timing-function: linear; }
-  50%  { transform: translate(-145px, 130px); animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1); }
-  60%  { transform: translate(-160px, 0); animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1); }
-  70%  { transform: translate(-115px, -120px); animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1); }
-  80%  { transform: translate(0, -160px); animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1); }
-  90%  { transform: translate(125px, -125px); animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1); }
-  100% { transform: translate(175px, -230px); }
+  0%   { transform: translate(195px, -250px) scale(1, 1);       animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  11%  { transform: translate(155px, 130px) scale(1.25, 0.7);   animation-timing-function: cubic-bezier(0.2, 0.8, 0.4, 1); }
+  12%  { transform: translate(150px, 127px) scale(1, 1);        animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  17%  { transform: translate(125px, -50px) scale(0.95, 1.05);  animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  22%  { transform: translate(100px, 130px) scale(1.2, 0.78);   animation-timing-function: cubic-bezier(0.2, 0.8, 0.4, 1); }
+  23%  { transform: translate(96px, 128px) scale(1, 1);         animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  27%  { transform: translate(75px, 35px) scale(0.97, 1.03);    animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  31%  { transform: translate(55px, 130px) scale(1.15, 0.82);   animation-timing-function: cubic-bezier(0.2, 0.8, 0.4, 1); }
+  32%  { transform: translate(52px, 128px) scale(1, 1);         animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  35%  { transform: translate(38px, 88px) scale(0.98, 1.02);    animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  38%  { transform: translate(25px, 130px) scale(1.1, 0.88);    animation-timing-function: cubic-bezier(0.2, 0.8, 0.4, 1); }
+  39%  { transform: translate(23px, 128px) scale(1, 1);         animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  41%  { transform: translate(15px, 113px) scale(0.99, 1.01);   animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  43%  { transform: translate(5px, 130px) scale(1.05, 0.93);    animation-timing-function: cubic-bezier(0.2, 0.8, 0.4, 1); }
+  45%  { transform: translate(-5px, 128px) scale(1, 1);         animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1); }
+  52%  { transform: translate(-155px, 128px) scale(1, 1);       animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1); }
+  62%  { transform: translate(-170px, 5px) scale(1, 1);         animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1); }
+  72%  { transform: translate(-120px, -130px) scale(1, 1);      animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1); }
+  82%  { transform: translate(0, -170px) scale(1, 1);           animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1); }
+  92%  { transform: translate(135px, -135px) scale(1, 1);       animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1); }
+  100% { transform: translate(195px, -250px) scale(1, 1); }
 }
 
 @media (max-width: 640px) {
@@ -437,22 +454,27 @@ body {
 }
 
 @keyframes hero-ball-path-sm {
-  0%   { transform: translate(105px, -150px); animation-timing-function: cubic-bezier(0.5, 0.05, 0.9, 0.5); }
-  10%  { transform: translate(90px, 80px); animation-timing-function: cubic-bezier(0.1, 0.7, 0.3, 1); }
-  16%  { transform: translate(65px, 18px); animation-timing-function: cubic-bezier(0.5, 0.05, 0.9, 0.5); }
-  22%  { transform: translate(45px, 80px); animation-timing-function: cubic-bezier(0.1, 0.7, 0.3, 1); }
-  27%  { transform: translate(30px, 38px); animation-timing-function: cubic-bezier(0.5, 0.05, 0.9, 0.5); }
-  32%  { transform: translate(15px, 80px); animation-timing-function: cubic-bezier(0.1, 0.7, 0.3, 1); }
-  36%  { transform: translate(5px, 58px); animation-timing-function: cubic-bezier(0.5, 0.05, 0.9, 0.5); }
-  40%  { transform: translate(-5px, 80px); animation-timing-function: cubic-bezier(0.1, 0.6, 0.3, 1); }
-  42%  { transform: translate(-12px, 72px); animation-timing-function: cubic-bezier(0.5, 0.05, 0.9, 0.5); }
-  44%  { transform: translate(-20px, 80px); animation-timing-function: linear; }
-  50%  { transform: translate(-90px, 80px); animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1); }
-  60%  { transform: translate(-100px, 0); animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1); }
-  70%  { transform: translate(-70px, -75px); animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1); }
-  80%  { transform: translate(0, -100px); animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1); }
-  90%  { transform: translate(78px, -78px); animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1); }
-  100% { transform: translate(105px, -150px); }
+  0%   { transform: translate(115px, -160px) scale(1, 1);       animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  11%  { transform: translate(95px, 80px) scale(1.25, 0.7);     animation-timing-function: cubic-bezier(0.2, 0.8, 0.4, 1); }
+  12%  { transform: translate(92px, 78px) scale(1, 1);          animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  17%  { transform: translate(78px, -30px) scale(0.95, 1.05);   animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  22%  { transform: translate(60px, 80px) scale(1.2, 0.78);     animation-timing-function: cubic-bezier(0.2, 0.8, 0.4, 1); }
+  23%  { transform: translate(57px, 78px) scale(1, 1);          animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  27%  { transform: translate(43px, 22px) scale(0.97, 1.03);    animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  31%  { transform: translate(30px, 80px) scale(1.15, 0.82);    animation-timing-function: cubic-bezier(0.2, 0.8, 0.4, 1); }
+  32%  { transform: translate(28px, 78px) scale(1, 1);          animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  35%  { transform: translate(20px, 52px) scale(0.98, 1.02);    animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  38%  { transform: translate(12px, 80px) scale(1.1, 0.88);     animation-timing-function: cubic-bezier(0.2, 0.8, 0.4, 1); }
+  39%  { transform: translate(10px, 78px) scale(1, 1);          animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  41%  { transform: translate(5px, 68px) scale(0.99, 1.01);     animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  43%  { transform: translate(-2px, 80px) scale(1.05, 0.93);    animation-timing-function: cubic-bezier(0.2, 0.8, 0.4, 1); }
+  45%  { transform: translate(-8px, 78px) scale(1, 1);          animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1); }
+  52%  { transform: translate(-95px, 78px) scale(1, 1);         animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1); }
+  62%  { transform: translate(-105px, 0) scale(1, 1);           animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1); }
+  72%  { transform: translate(-75px, -80px) scale(1, 1);        animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1); }
+  82%  { transform: translate(0, -105px) scale(1, 1);           animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1); }
+  92%  { transform: translate(82px, -82px) scale(1, 1);         animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1); }
+  100% { transform: translate(115px, -160px) scale(1, 1); }
 }
 
 /* Tiptap editor base */
