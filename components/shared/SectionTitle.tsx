@@ -19,16 +19,16 @@ export function SectionTitle({
   return (
     <div
       className={cn(
-        "flex items-end justify-between gap-4 mb-6 sm:mb-8",
+        "flex items-end justify-between gap-4 mb-5 sm:mb-7",
         className,
       )}
     >
-      <div>
+      <div className="min-w-0">
         {eyebrow ? (
           <div
             className={cn(
               "text-[11px] font-bold tracking-[0.3em] uppercase",
-              invert ? "text-nara-gold/80" : "text-nara-green",
+              invert ? "text-nara-gold/80" : "text-nara-gold-dark",
             )}
           >
             {eyebrow}
@@ -36,22 +36,22 @@ export function SectionTitle({
         ) : null}
         <h2
           className={cn(
-            "heading-display mt-1 text-3xl sm:text-4xl font-black",
-            invert ? "text-white" : "text-nara-green-deeper",
+            "heading-display mt-1 text-2xl sm:text-3xl font-black leading-[1]",
+            invert ? "text-white" : "text-nara-ink",
           )}
         >
           {title}
         </h2>
-        <span className="divider-gold mt-3 block transition-all duration-500 hover:w-24" />
+        <span className="mt-2.5 block h-[2px] w-10 rounded-full bg-nara-gold" />
       </div>
       {href ? (
         <Link
           href={href}
           className={cn(
-            "shrink-0 group inline-flex items-center gap-2 text-sm font-bold tracking-wide uppercase",
+            "shrink-0 group inline-flex items-center gap-2 text-xs font-bold tracking-[0.15em] uppercase",
             invert
               ? "text-nara-gold hover:text-nara-gold-light"
-              : "text-nara-green hover:text-nara-green-dark",
+              : "text-nara-ink hover:text-nara-gold-dark",
           )}
         >
           {hrefLabel}

@@ -29,42 +29,36 @@ const SOCIALS = [
 export function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="relative mt-20 overflow-hidden bg-nara-green-deeper text-white">
-      <div aria-hidden className="absolute inset-0 bg-pitch-stripes opacity-60" />
+    <footer className="relative mt-20 overflow-hidden bg-nara-ink text-white">
       <div
         aria-hidden
-        className="absolute -top-32 -right-32 h-96 w-96 rounded-full bg-nara-green/30 blur-3xl"
-      />
-      <div
-        aria-hidden
-        className="absolute -bottom-40 -left-32 h-96 w-96 rounded-full bg-nara-gold/10 blur-3xl"
+        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-nara-gold/60 to-transparent"
       />
 
-      <Container className="relative pt-16 pb-10">
-        <div className="grid gap-12 md:grid-cols-12">
+      <Container className="relative pt-14 pb-10">
+        <div className="grid gap-10 md:grid-cols-12">
           {/* Brand */}
           <div className="md:col-span-4">
             <div className="flex items-center gap-3">
-              <Logo size="lg" glow />
+              <Logo size="lg" />
               <div>
                 <div className="heading-display text-2xl">NARA UNITED</div>
-                <div className="text-[11px] tracking-[0.3em] text-nara-gold/80">
-                  กอและพิฆาต
+                <div className="text-[11px] tracking-[0.3em] text-nara-gold/80 mt-1">
+                  กอและพิฆาต · EST. 2010
                 </div>
               </div>
             </div>
-            <p className="mt-5 max-w-sm text-sm leading-relaxed text-white/70">
-              สโมสรฟุตบอลนราฯ ยูไนเต็ด — ก่อตั้งปี 2010
-              ทีมแห่งศักดิ์ศรีและจิตวิญญาณของชาวนราธิวาส
+            <p className="mt-5 max-w-sm text-sm leading-relaxed text-white/65">
+              สโมสรฟุตบอลนราธิวาส ยูไนเต็ด — ทีมแห่งศักดิ์ศรีและจิตวิญญาณของชาวนราธิวาส
             </p>
 
-            <div className="mt-6 flex items-center gap-3">
+            <div className="mt-6 flex items-center gap-2.5">
               {SOCIALS.map(({ label, href, path }) => (
                 <a
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="grid h-10 w-10 place-items-center rounded-full border border-white/15 bg-white/5 text-white/80 hover:border-nara-gold hover:text-nara-gold hover:bg-nara-gold/10 transition"
+                  className="grid h-9 w-9 place-items-center rounded-md border border-white/15 text-white/80 hover:border-nara-gold hover:text-nara-gold hover:bg-nara-gold/5 transition"
                 >
                   <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current">
                     <path d={path} />
@@ -76,31 +70,35 @@ export function Footer() {
 
           {/* Link columns */}
           <div className="md:col-span-2">
-            <h3 className="heading-display text-base text-nara-gold">สโมสร</h3>
-            <span className="divider-gold mt-2 block" />
+            <h3 className="text-[11px] font-bold tracking-[0.3em] uppercase text-nara-gold">
+              สโมสร
+            </h3>
             <ul className="mt-4 space-y-2.5 text-sm text-white/70">
-              <li><Link href="/about/history" className="hover:text-nara-gold">ประวัติสโมสร</Link></li>
-              <li><Link href="/about/stadium" className="hover:text-nara-gold">สนามเหย้า</Link></li>
-              <li><Link href="/about/staff" className="hover:text-nara-gold">ทีมงาน</Link></li>
-              <li><Link href="/about" className="hover:text-nara-gold">เกี่ยวกับเรา</Link></li>
+              <li><Link href="/about/history" className="hover:text-nara-gold transition">ประวัติสโมสร</Link></li>
+              <li><Link href="/about/stadium" className="hover:text-nara-gold transition">สนามเหย้า</Link></li>
+              <li><Link href="/about/staff" className="hover:text-nara-gold transition">ทีมงาน</Link></li>
+              <li><Link href="/about" className="hover:text-nara-gold transition">เกี่ยวกับเรา</Link></li>
             </ul>
           </div>
 
           <div className="md:col-span-2">
-            <h3 className="heading-display text-base text-nara-gold">ฟุตบอล</h3>
-            <span className="divider-gold mt-2 block" />
+            <h3 className="text-[11px] font-bold tracking-[0.3em] uppercase text-nara-gold">
+              ฟุตบอล
+            </h3>
             <ul className="mt-4 space-y-2.5 text-sm text-white/70">
-              <li><Link href="/fixtures" className="hover:text-nara-gold">โปรแกรม/ผล</Link></li>
-              <li><Link href="/squad" className="hover:text-nara-gold">รายชื่อนักเตะ</Link></li>
-              <li><Link href="/table" className="hover:text-nara-gold">ตารางคะแนน</Link></li>
-              <li><Link href="/news" className="hover:text-nara-gold">ข่าวสาร</Link></li>
+              <li><Link href="/fixtures" className="hover:text-nara-gold transition">โปรแกรม / ผล</Link></li>
+              <li><Link href="/squad" className="hover:text-nara-gold transition">รายชื่อนักเตะ</Link></li>
+              <li><Link href="/table" className="hover:text-nara-gold transition">ตารางคะแนน</Link></li>
+              <li><Link href="/news" className="hover:text-nara-gold transition">ข่าวสาร</Link></li>
+              <li><Link href="/shop" className="hover:text-nara-gold transition">ร้านค้าสโมสร</Link></li>
             </ul>
           </div>
 
           {/* Contact */}
           <div className="md:col-span-4">
-            <h3 className="heading-display text-base text-nara-gold">ติดต่อสโมสร</h3>
-            <span className="divider-gold mt-2 block" />
+            <h3 className="text-[11px] font-bold tracking-[0.3em] uppercase text-nara-gold">
+              ติดต่อสโมสร
+            </h3>
             <ul className="mt-4 space-y-3 text-sm text-white/75">
               <li className="flex items-start gap-3">
                 <MapPin className="h-4 w-4 mt-0.5 text-nara-gold shrink-0" />
@@ -108,7 +106,7 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="h-4 w-4 text-nara-gold shrink-0" />
-                <a href="mailto:contact@naraunited.fc" className="hover:text-nara-gold">
+                <a href="mailto:contact@naraunited.fc" className="hover:text-nara-gold transition">
                   contact@naraunited.fc
                 </a>
               </li>
@@ -120,7 +118,7 @@ export function Footer() {
 
             <Link
               href="/contact"
-              className="mt-6 inline-flex items-center gap-2 rounded-full bg-nara-gold px-5 py-2.5 text-sm font-bold text-nara-green-deeper hover:bg-nara-gold-light transition shine-on-hover"
+              className="mt-6 inline-flex items-center gap-2 rounded-md bg-nara-gold px-5 py-2.5 text-xs font-bold uppercase tracking-[0.15em] text-nara-ink hover:bg-nara-gold-light transition"
             >
               ส่งข้อความถึงสโมสร →
             </Link>
@@ -131,8 +129,8 @@ export function Footer() {
       <div className="relative border-t border-white/10 bg-black/40">
         <Container className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between py-4 text-xs text-white/55">
           <span>© {year} Nara United Football Club. สงวนลิขสิทธิ์.</span>
-          <span className="tracking-widest uppercase">
-            Built with passion · Designed for victory
+          <span className="tracking-[0.2em] uppercase">
+            Official Website
           </span>
         </Container>
       </div>

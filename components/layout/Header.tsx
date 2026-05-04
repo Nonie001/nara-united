@@ -14,6 +14,7 @@ const NAV_LINKS = [
   { href: "/squad", label: "ผู้เล่น" },
   { href: "/news", label: "ข่าวสาร" },
   { href: "/table", label: "ตารางคะแนน" },
+  { href: "/shop", label: "ร้านค้า" },
   { href: "/about", label: "เกี่ยวกับ" },
   { href: "/contact", label: "ติดต่อ" },
 ] as const;

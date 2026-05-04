@@ -4,18 +4,22 @@ import type { Sponsor } from "@/types/database";
 export function SponsorStrip({ sponsors }: { sponsors: Sponsor[] }) {
   if (sponsors.length === 0) return null;
 
-  // Duplicate for marquee loop
   const items = [...sponsors, ...sponsors];
 
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-gray-200 bg-gradient-to-r from-gray-50 via-white to-gray-50 py-8">
-      <div className="text-center mb-6">
-        <div className="text-[11px] font-bold tracking-[0.4em] uppercase text-nara-green">
+    <div className="relative overflow-hidden rounded-xl border border-gray-200 bg-white py-10 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+      <div
+        aria-hidden
+        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-nara-gold/60 to-transparent"
+      />
+      <div className="text-center mb-7">
+        <div className="text-[11px] font-bold tracking-[0.4em] uppercase text-nara-gold-dark">
           Official Partners
         </div>
-        <h3 className="heading-display mt-1 text-2xl text-nara-green-deeper">
+        <h3 className="heading-display mt-1.5 text-2xl text-nara-ink">
           พาร์ทเนอร์ของเรา
         </h3>
+        <span className="mt-2 inline-block h-[2px] w-10 rounded-full bg-nara-gold" />
       </div>
 
       <div className="relative">
@@ -36,7 +40,7 @@ export function SponsorStrip({ sponsors }: { sponsors: Sponsor[] }) {
                 alt={s.name}
                 width={140}
                 height={70}
-                className="object-contain h-14 w-auto opacity-70 hover:opacity-100 grayscale hover:grayscale-0 transition"
+                className="object-contain h-12 w-auto opacity-70 hover:opacity-100 grayscale hover:grayscale-0 transition"
               />
             ) : (
               <span className="px-4 py-2 rounded-md border border-gray-300 text-gray-700 text-sm font-semibold whitespace-nowrap">

@@ -34,7 +34,6 @@ export function MatchCard({ match }: { match: Match }) {
   const o = outcome(match);
   const status = statusToBadge(match.status);
 
-  // Accent stripe color
   const stripe =
     o === "win"
       ? "bg-win"
@@ -47,11 +46,11 @@ export function MatchCard({ match }: { match: Match }) {
   return (
     <Link
       href={`/fixtures/${match.id}`}
-      className="card-lift group block relative overflow-hidden rounded-2xl border border-gray-200 bg-white shine-on-hover"
+      className="card-lift group block relative overflow-hidden rounded-xl border border-gray-200 bg-white shadow-[0_1px_2px_rgba(15,23,42,0.04)]"
     >
-      <div className={`absolute left-0 top-0 bottom-0 w-1.5 ${stripe} transition-all duration-300 group-hover:w-2`} />
+      <div className={`absolute left-0 top-0 bottom-0 w-1 ${stripe} transition-all duration-300 group-hover:w-1.5`} />
       <div className="p-5 pl-6">
-        <div className="flex items-center justify-between text-[11px] font-semibold tracking-widest uppercase text-gray-500 mb-4">
+        <div className="flex items-center justify-between text-[11px] font-semibold tracking-[0.18em] uppercase text-gray-500 mb-4">
           <span className="truncate">
             {match.competition}
             {match.round ? ` · ${match.round}` : ""}
@@ -66,7 +65,7 @@ export function MatchCard({ match }: { match: Match }) {
             logo={match.is_home ? null : match.opponent_logo_url}
             align="end"
           />
-          <div className="heading-display text-2xl sm:text-3xl font-black text-nara-green-deeper px-2 transition-transform duration-300 group-hover:scale-110">
+          <div className="heading-display text-2xl sm:text-3xl font-black text-nara-ink px-2 transition-transform duration-300 group-hover:scale-105">
             {s ?? "vs"}
           </div>
           <TeamMini
@@ -111,9 +110,9 @@ function TeamMini({
       className={`flex items-center gap-2 ${align === "end" ? "justify-end" : "justify-start"}`}
     >
       {align === "end" ? (
-        <span className="font-bold text-sm truncate">{name}</span>
+        <span className="font-bold text-sm truncate text-nara-ink">{name}</span>
       ) : null}
-      <span className="grid h-9 w-9 place-items-center rounded-full bg-gray-100 overflow-hidden shrink-0">
+      <span className="grid h-9 w-9 place-items-center rounded-full bg-gray-100 overflow-hidden shrink-0 border border-gray-200">
         {us ? (
           <Logo size="sm" />
         ) : logo ? (
@@ -125,7 +124,7 @@ function TeamMini({
         )}
       </span>
       {align === "start" ? (
-        <span className="font-bold text-sm truncate">{name}</span>
+        <span className="font-bold text-sm truncate text-nara-ink">{name}</span>
       ) : null}
     </div>
   );

@@ -9,39 +9,39 @@ import { Calendar, MapPin, Trophy } from "lucide-react";
 export function MatchHero({ match }: { match: Match | null }) {
   if (!match) {
     return (
-      <div className="relative overflow-hidden rounded-3xl border border-nara-green-dark/40 bg-gradient-to-br from-nara-green via-nara-green-dark to-nara-green-deeper text-white p-10 text-center">
-        <div aria-hidden className="absolute inset-0 bg-pitch-stripes" />
-        <div aria-hidden className="absolute inset-0 bg-noise opacity-50" />
-        <div className="relative">
-          <div className="text-xs uppercase tracking-[0.3em] text-nara-gold">
-            Next Fixture
-          </div>
-          <h2 className="heading-display mt-3 text-3xl sm:text-4xl">
-            ยังไม่มีโปรแกรมแข่งขันถัดไป
-          </h2>
-          <p className="mt-2 text-white/70">โปรดติดตามการประกาศจากสโมสร</p>
+      <div className="relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-10 text-center shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+        <div
+          aria-hidden
+          className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-nara-gold to-transparent"
+        />
+        <div className="text-[11px] uppercase tracking-[0.3em] text-nara-gold-dark font-bold">
+          Next Fixture
         </div>
+        <h2 className="heading-display mt-3 text-3xl sm:text-4xl text-nara-ink">
+          ยังไม่มีโปรแกรมแข่งขันถัดไป
+        </h2>
+        <p className="mt-2 text-gray-600">โปรดติดตามการประกาศจากสโมสร</p>
       </div>
     );
   }
 
   return (
-    <section className="relative overflow-hidden rounded-3xl border border-white/5 bg-gradient-to-br from-nara-green-deeper via-nara-green-dark to-nara-black text-white shadow-2xl shadow-nara-green-deeper/40">
-      <div aria-hidden className="absolute inset-0 bg-pitch-stripes" />
-      <div aria-hidden className="absolute inset-0 bg-noise opacity-40" />
+    <section className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-nara-ink via-[#101a13] to-black text-white shadow-xl">
+      <div aria-hidden className="absolute inset-0 bg-pitch-stripes opacity-60" />
+      <div aria-hidden className="absolute inset-0 bg-noise opacity-30" />
       <div
         aria-hidden
-        className="absolute -top-32 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-nara-gold/15 blur-3xl"
+        className="absolute -top-32 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-nara-gold/15 blur-3xl"
       />
       <div
         aria-hidden
-        className="absolute -bottom-40 -right-32 h-96 w-96 rounded-full bg-nara-green/40 blur-3xl"
+        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-nara-gold/70 to-transparent"
       />
 
       <div className="relative p-6 sm:p-10 lg:p-12">
         {/* Top meta */}
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <div className="inline-flex items-center gap-2 rounded-full border border-nara-gold/40 bg-nara-gold/10 px-3 py-1 text-[11px] font-bold tracking-[0.3em] uppercase text-nara-gold">
+          <div className="inline-flex items-center gap-2 rounded-md border border-nara-gold/40 bg-nara-gold/10 px-3 py-1 text-[11px] font-bold tracking-[0.3em] uppercase text-nara-gold">
             <Trophy className="h-3 w-3" />
             เกมต่อไป
           </div>
@@ -52,14 +52,13 @@ export function MatchHero({ match }: { match: Match | null }) {
         </div>
 
         {/* Competition name */}
-        <div className="mt-2 text-center text-[11px] sm:text-xs tracking-[0.3em] uppercase text-white/60">
+        <div className="mt-2 text-center text-[11px] sm:text-xs tracking-[0.3em] uppercase text-white/55">
           {match.competition}
           {match.round ? ` · ${match.round}` : ""}
         </div>
 
         {/* Teams */}
         <div className="mt-8 grid grid-cols-[1fr_auto_1fr] items-center gap-4 sm:gap-8">
-          {/* Home (us if is_home, else opponent) */}
           <TeamSide
             name={match.is_home ? "Nara United" : match.opponent}
             logo={match.is_home ? "us" : match.opponent_logo_url}
@@ -67,7 +66,7 @@ export function MatchHero({ match }: { match: Match | null }) {
           />
 
           <div className="text-center">
-            <div className="heading-display text-3xl sm:text-5xl text-white/40 tracking-widest">
+            <div className="heading-display text-3xl sm:text-5xl text-white/30 tracking-widest">
               VS
             </div>
             <div className="mt-2 text-[10px] uppercase tracking-[0.3em] text-white/40">
@@ -83,7 +82,7 @@ export function MatchHero({ match }: { match: Match | null }) {
 
         {/* Countdown */}
         <div className="mt-10 flex flex-col items-center gap-4">
-          <div className="text-[10px] tracking-[0.4em] uppercase text-white/50">
+          <div className="text-[10px] tracking-[0.4em] uppercase text-white/45">
             Kick-off in
           </div>
           <Countdown target={match.kickoff_at} />
@@ -100,13 +99,13 @@ export function MatchHero({ match }: { match: Match | null }) {
           <div className="flex flex-wrap gap-2">
             <Link
               href={`/fixtures/${match.id}`}
-              className="inline-flex items-center gap-2 rounded-full bg-nara-gold px-5 py-2.5 text-sm font-bold text-nara-green-deeper hover:bg-nara-gold-light transition shine-on-hover"
+              className="inline-flex items-center gap-2 rounded-md bg-nara-gold px-5 py-2.5 text-xs font-bold uppercase tracking-[0.15em] text-nara-ink hover:bg-nara-gold-light transition"
             >
               รายละเอียดแมตช์ →
             </Link>
             <Link
               href="/fixtures"
-              className="inline-flex items-center gap-2 rounded-full border border-white/20 px-5 py-2.5 text-sm font-semibold text-white/85 hover:border-nara-gold hover:text-nara-gold transition"
+              className="inline-flex items-center gap-2 rounded-md border border-white/20 px-5 py-2.5 text-xs font-bold uppercase tracking-[0.15em] text-white/85 hover:border-nara-gold hover:text-nara-gold transition"
             >
               โปรแกรมทั้งหมด
             </Link>
@@ -120,14 +119,13 @@ export function MatchHero({ match }: { match: Match | null }) {
 function TeamSide({
   name,
   logo,
-  home,
 }: {
   name: string;
   logo: string | null | "us";
   home?: boolean;
 }) {
   return (
-    <div className={`flex flex-col items-center text-center ${home ? "" : ""}`}>
+    <div className="flex flex-col items-center text-center">
       <div className="relative h-20 w-20 sm:h-28 sm:w-28">
         <div
           aria-hidden

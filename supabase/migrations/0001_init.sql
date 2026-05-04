@@ -12,7 +12,7 @@ do $$ begin
 exception when duplicate_object then null; end $$;
 
 do $$ begin
-  create type position as enum ('GK', 'DF', 'MF', 'FW');
+  create type player_position as enum ('GK', 'DF', 'MF', 'FW');
 exception when duplicate_object then null; end $$;
 
 do $$ begin
@@ -106,7 +106,7 @@ create table if not exists public.players (
   slug text unique not null,
   name_th text not null,
   jersey_number integer,
-  position position not null,
+  position player_position not null,
   date_of_birth date,
   nationality text default 'ไทย',
   height_cm integer,
