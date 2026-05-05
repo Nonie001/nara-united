@@ -15,47 +15,70 @@ function diff(target: number) {
 const pad = (n: number) => n.toString().padStart(2, "0");
 
 export function Countdown({ target }: { target: string }) {
-  const [t, setT] = useState(() => diff(new Date(target).getTime()));
+  const [mounted, setMounted] = useState(false);
+  const [t, setT] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+    done: false,
+  });
 
   useEffect(() => {
-    const id = setInterval(() => setT(diff(new Date(target).getTime())), 1000);
+    setMounted(true);
+    const update = () => setT(diff(new Date(target).getTime()));
+    update();
+    const id = setInterval(update, 1000);
     return () => clearInterval(id);
   }, [target]);
 
-  const items = [
-    { v: t.days, l: "วัน" },
-    { v: t.hours, l: "ชม." },
-    { v: t.minutes, l: "นาที" },
-    { v: t.seconds, l: "วินาที" },
-  ];
+  if (!mounted) {
+    return (
+      <div
+        className="inline-flex items-baseline gap-1.5 font-mono tabular-nums opacity-40"
+        aria-hidden
+      >
+        <span className="text-lg sm:text-xl font-bold text-nara-gold leading-none">
+          --:--:--:--
+        </span>
+      </div>
+    );
+  }
 
   if (t.done) {
     return (
-      <div className="inline-flex items-center gap-2 rounded-full bg-nara-red/20 border border-nara-red/40 px-4 py-2 text-sm font-bold text-nara-red">
-        <span className="h-2 w-2 rounded-full bg-nara-red live-dot" />
+      <div className="inline-flex items-center gap-2 rounded-full bg-nara-red/20 border border-nara-red/40 px-3 py-1 text-xs font-bold text-nara-red">
+        <span className="h-1.5 w-1.5 rounded-full bg-nara-red live-dot" />
         เริ่มแล้ว
       </div>
     );
   }
 
+  const items = [
+    { v: t.days, l: "D" },
+    { v: t.hours, l: "H" },
+    { v: t.minutes, l: "M" },
+    { v: t.seconds, l: "S" },
+  ];
+
   return (
     <div
-      className="grid w-full max-w-xs sm:max-w-none sm:inline-grid grid-cols-4 gap-1.5 sm:gap-3"
+      className="inline-flex items-baseline gap-1.5 font-mono tabular-nums"
       role="timer"
       aria-label="นับถอยหลังสู่การแข่งขัน"
     >
-      {items.map((it) => (
-        <div
-          key={it.l}
-          className="rounded-lg border border-white/10 bg-black/30 backdrop-blur px-1.5 py-2 sm:px-3 text-center sm:min-w-[60px]"
-        >
-          <div className="heading-display text-xl sm:text-3xl text-nara-gold tabular-nums">
+      {items.map((it, i) => (
+        <span key={it.l} className="inline-flex items-baseline gap-0.5">
+          <span className="text-lg sm:text-xl font-bold text-nara-gold leading-none">
             {pad(it.v)}
-          </div>
-          <div className="mt-0.5 text-[9px] sm:text-[10px] uppercase tracking-wider sm:tracking-widest text-white/60">
+          </span>
+          <span className="text-[10px] uppercase text-white/45 leading-none">
             {it.l}
-          </div>
-        </div>
+          </span>
+          {i < items.length - 1 && (
+            <span className="text-white/20 text-sm leading-none ml-0.5">:</span>
+          )}
+        </span>
       ))}
     </div>
   );
