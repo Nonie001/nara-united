@@ -54,9 +54,9 @@ export default function RootLayout({
   return (
     <html
       lang="th"
-      className={`${notoSansThai.variable} ${geistSans.variable} ${geistMono.variable} ${bebas.variable} h-full antialiased`}
+      className={`${notoSansThai.variable} ${geistSans.variable} ${geistMono.variable} ${bebas.variable} h-full antialiased overflow-x-hidden`}
     >
-      <body className="min-h-full flex flex-col bg-white text-nara-black selection:bg-nara-gold/40 selection:text-nara-green-deeper">
+      <body className="min-h-full flex flex-col bg-white text-nara-black selection:bg-nara-gold/40 selection:text-nara-green-deeper overflow-x-hidden">
         {children}
       </body>
     </html>

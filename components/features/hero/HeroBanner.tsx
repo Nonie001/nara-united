@@ -123,7 +123,7 @@ export function HeroBanner() {
         {/* jersey-style watermark */}
         <div
           aria-hidden
-          className="pointer-events-none absolute right-2 top-2 sm:right-8 sm:top-6 select-none heading-display text-[7rem] sm:text-[14rem] lg:text-[18rem] leading-none font-black text-white/[0.03] tracking-tighter"
+          className="hidden sm:block pointer-events-none absolute right-8 top-6 select-none heading-display text-[14rem] lg:text-[18rem] leading-none font-black text-white/[0.03] tracking-tighter"
         >
           01
         </div>
