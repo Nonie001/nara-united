@@ -40,19 +40,19 @@ export function Countdown({ target }: { target: string }) {
 
   return (
     <div
-      className="inline-grid grid-cols-4 gap-2 sm:gap-3"
+      className="grid w-full max-w-xs sm:max-w-none sm:inline-grid grid-cols-4 gap-1.5 sm:gap-3"
       role="timer"
       aria-label="นับถอยหลังสู่การแข่งขัน"
     >
       {items.map((it) => (
         <div
           key={it.l}
-          className="rounded-lg border border-white/10 bg-black/30 backdrop-blur px-3 py-2 text-center min-w-[60px]"
+          className="rounded-lg border border-white/10 bg-black/30 backdrop-blur px-1.5 py-2 sm:px-3 text-center sm:min-w-[60px]"
         >
-          <div className="heading-display text-2xl sm:text-3xl text-nara-gold tabular-nums">
+          <div className="heading-display text-xl sm:text-3xl text-nara-gold tabular-nums">
             {pad(it.v)}
           </div>
-          <div className="mt-0.5 text-[10px] uppercase tracking-widest text-white/60">
+          <div className="mt-0.5 text-[9px] sm:text-[10px] uppercase tracking-wider sm:tracking-widest text-white/60">
             {it.l}
           </div>
         </div>
