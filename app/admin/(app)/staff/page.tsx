@@ -33,12 +33,12 @@ export default async function AdminStaffPage() {
         </CardBody>
       </Card>
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-4 sm:grid-cols-2">
         {staff.map((s) => (
           <Card key={s.id}>
             <CardBody>
-              <div className="flex gap-4 items-start">
-                <div className="relative h-20 w-20 rounded-full overflow-hidden bg-gray-100">
+              <div className="flex gap-3 sm:gap-4 items-start">
+                <div className="relative h-16 w-16 sm:h-20 sm:w-20 shrink-0 rounded-full overflow-hidden bg-gray-100">
                   {s.photo_url ? (
                     <Image
                       src={s.photo_url}
@@ -50,7 +50,7 @@ export default async function AdminStaffPage() {
                   ) : null}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     <h3 className="font-bold">{s.name_th}</h3>
                     <Badge variant={s.is_active ? "win" : "default"}>
                       {s.is_active ? "active" : "inactive"}

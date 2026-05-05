@@ -26,7 +26,7 @@ export default async function AdminStandingsPage({ searchParams }: Props) {
       <Card>
         <CardBody>
           <h2 className="font-display font-bold mb-3">เพิ่ม/แก้ไขทีม</h2>
-          <form action={upsertStandingAction} className="grid gap-3 sm:grid-cols-4">
+          <form action={upsertStandingAction} className="grid gap-3 grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
             <Field label="ฤดูกาล" required>
               <TextInput name="season" required defaultValue={season} />
             </Field>
@@ -63,7 +63,7 @@ export default async function AdminStandingsPage({ searchParams }: Props) {
             <Field label="คะแนน">
               <TextInput name="points" type="number" min={0} defaultValue={0} />
             </Field>
-            <div className="flex items-end">
+            <div className="flex items-end col-span-2 sm:col-span-3 md:col-span-1">
               <Button type="submit" className="w-full">
                 บันทึก / Upsert
               </Button>
@@ -82,14 +82,14 @@ export default async function AdminStandingsPage({ searchParams }: Props) {
               <tr>
                 <th className="px-3 py-2">#</th>
                 <th className="px-3 py-2">ทีม</th>
-                <th className="px-3 py-2">P</th>
-                <th className="px-3 py-2">W</th>
-                <th className="px-3 py-2">D</th>
-                <th className="px-3 py-2">L</th>
-                <th className="px-3 py-2">GF</th>
-                <th className="px-3 py-2">GA</th>
+                <th className="px-3 py-2 hidden sm:table-cell">P</th>
+                <th className="px-3 py-2 hidden md:table-cell">W</th>
+                <th className="px-3 py-2 hidden md:table-cell">D</th>
+                <th className="px-3 py-2 hidden md:table-cell">L</th>
+                <th className="px-3 py-2 hidden lg:table-cell">GF</th>
+                <th className="px-3 py-2 hidden lg:table-cell">GA</th>
                 <th className="px-3 py-2">Pts</th>
-                <th className="px-3 py-2">Source</th>
+                <th className="px-3 py-2 hidden md:table-cell">Source</th>
                 <th className="px-3 py-2"></th>
               </tr>
             </thead>
@@ -98,14 +98,14 @@ export default async function AdminStandingsPage({ searchParams }: Props) {
                 <tr key={r.id} className="border-t border-gray-100">
                   <td className="px-3 py-2">{r.position}</td>
                   <td className="px-3 py-2 font-medium">{r.team_name}</td>
-                  <td className="px-3 py-2">{r.played}</td>
-                  <td className="px-3 py-2">{r.won}</td>
-                  <td className="px-3 py-2">{r.drawn}</td>
-                  <td className="px-3 py-2">{r.lost}</td>
-                  <td className="px-3 py-2">{r.goals_for}</td>
-                  <td className="px-3 py-2">{r.goals_against}</td>
+                  <td className="px-3 py-2 hidden sm:table-cell">{r.played}</td>
+                  <td className="px-3 py-2 hidden md:table-cell">{r.won}</td>
+                  <td className="px-3 py-2 hidden md:table-cell">{r.drawn}</td>
+                  <td className="px-3 py-2 hidden md:table-cell">{r.lost}</td>
+                  <td className="px-3 py-2 hidden lg:table-cell">{r.goals_for}</td>
+                  <td className="px-3 py-2 hidden lg:table-cell">{r.goals_against}</td>
                   <td className="px-3 py-2 font-bold">{r.points}</td>
-                  <td className="px-3 py-2">{r.source}</td>
+                  <td className="px-3 py-2 hidden md:table-cell">{r.source}</td>
                   <td className="px-3 py-2 text-right">
                     <DeleteButton
                       action={async () => {

@@ -19,7 +19,7 @@ export function SectionTitle({
   return (
     <div
       className={cn(
-        "flex items-end justify-between gap-4 mb-5 sm:mb-7",
+        "flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 sm:gap-4 mb-5 sm:mb-7",
         className,
       )}
     >

@@ -54,7 +54,7 @@ export default async function MatchDetailPage({ params }: Props) {
           กลับโปรแกรมแข่งขัน
         </Link>
 
-        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-nara-ink via-[#101a13] to-black text-white p-8 sm:p-12 text-center border border-white/10 shadow-xl">
+        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-nara-ink via-[#101a13] to-black text-white p-5 sm:p-10 lg:p-12 text-center border border-white/10 shadow-xl">
           <div aria-hidden className="absolute inset-0 bg-pitch-stripes opacity-50" />
           <div
             aria-hidden
@@ -64,14 +64,14 @@ export default async function MatchDetailPage({ params }: Props) {
             <Badge variant="gold" className="mb-4">
               {match.competition}
             </Badge>
-            <div className="grid grid-cols-3 items-center gap-4 mt-6">
-              <div className="heading-display text-lg sm:text-2xl">
+            <div className="grid grid-cols-3 items-center gap-2 sm:gap-4 mt-5 sm:mt-6">
+              <div className="heading-display text-sm sm:text-2xl break-words">
                 {match.is_home ? "Nara United" : match.opponent}
               </div>
-              <div className="heading-display text-5xl sm:text-7xl font-black tracking-wider">
+              <div className="heading-display text-3xl sm:text-6xl lg:text-7xl font-black tracking-wider">
                 {score}
               </div>
-              <div className="heading-display text-lg sm:text-2xl">
+              <div className="heading-display text-sm sm:text-2xl break-words">
                 {match.is_home ? match.opponent : "Nara United"}
               </div>
             </div>

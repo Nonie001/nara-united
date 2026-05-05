@@ -20,17 +20,17 @@ export function StandingsTable({
       <div className="overflow-x-auto">
         <table className="min-w-full text-sm">
           <thead className="bg-nara-ink text-white">
-            <tr className="text-[11px] uppercase tracking-[0.15em]">
-              <th className="px-3 py-3 text-left font-bold">#</th>
-              <th className="px-3 py-3 text-left font-bold">ทีม</th>
-              <th className="px-3 py-3 text-center font-bold">P</th>
-              <th className="px-3 py-3 text-center font-bold">W</th>
-              <th className="px-3 py-3 text-center font-bold">D</th>
-              <th className="px-3 py-3 text-center font-bold">L</th>
-              <th className="px-3 py-3 text-center font-bold">GF</th>
-              <th className="px-3 py-3 text-center font-bold">GA</th>
-              <th className="px-3 py-3 text-center font-bold">GD</th>
-              <th className="px-3 py-3 text-center font-bold text-nara-gold">Pts</th>
+            <tr className="text-[10px] sm:text-[11px] uppercase tracking-[0.1em] sm:tracking-[0.15em]">
+              <th className="px-2 sm:px-3 py-3 text-left font-bold">#</th>
+              <th className="px-2 sm:px-3 py-3 text-left font-bold">ทีม</th>
+              <th className="px-2 sm:px-3 py-3 text-center font-bold">P</th>
+              <th className="px-2 sm:px-3 py-3 text-center font-bold">W</th>
+              <th className="px-2 sm:px-3 py-3 text-center font-bold hidden sm:table-cell">D</th>
+              <th className="px-2 sm:px-3 py-3 text-center font-bold hidden sm:table-cell">L</th>
+              <th className="px-2 sm:px-3 py-3 text-center font-bold hidden md:table-cell">GF</th>
+              <th className="px-2 sm:px-3 py-3 text-center font-bold hidden md:table-cell">GA</th>
+              <th className="px-2 sm:px-3 py-3 text-center font-bold">GD</th>
+              <th className="px-2 sm:px-3 py-3 text-center font-bold text-nara-gold">Pts</th>
             </tr>
           </thead>
           <tbody>
@@ -46,23 +46,23 @@ export function StandingsTable({
                       : "hover:bg-gray-50"
                   )}
                 >
-                  <td className={cn("px-3 py-2.5", me ? "text-nara-ink font-bold" : "text-gray-500")}>{r.position}</td>
-                  <td className="px-3 py-2.5 text-nara-ink">
+                  <td className={cn("px-2 sm:px-3 py-2.5", me ? "text-nara-ink font-bold" : "text-gray-500")}>{r.position}</td>
+                  <td className="px-2 sm:px-3 py-2.5 text-nara-ink">
                     <span className="inline-flex items-center gap-2">
                       {me ? (
                         <span className="h-1.5 w-1.5 rounded-full bg-nara-gold" />
                       ) : null}
-                      {r.team_name}
+                      <span className="truncate max-w-[10rem] sm:max-w-none">{r.team_name}</span>
                     </span>
                   </td>
-                  <td className="px-3 py-2.5 text-center text-gray-700">{r.played}</td>
-                  <td className="px-3 py-2.5 text-center text-gray-700">{r.won}</td>
-                  <td className="px-3 py-2.5 text-center text-gray-700">{r.drawn}</td>
-                  <td className="px-3 py-2.5 text-center text-gray-700">{r.lost}</td>
-                  <td className="px-3 py-2.5 text-center text-gray-700">{r.goals_for}</td>
-                  <td className="px-3 py-2.5 text-center text-gray-700">{r.goals_against}</td>
-                  <td className="px-3 py-2.5 text-center text-gray-700">{r.goal_difference}</td>
-                  <td className="px-3 py-2.5 text-center font-extrabold text-nara-ink">
+                  <td className="px-2 sm:px-3 py-2.5 text-center text-gray-700">{r.played}</td>
+                  <td className="px-2 sm:px-3 py-2.5 text-center text-gray-700">{r.won}</td>
+                  <td className="px-2 sm:px-3 py-2.5 text-center text-gray-700 hidden sm:table-cell">{r.drawn}</td>
+                  <td className="px-2 sm:px-3 py-2.5 text-center text-gray-700 hidden sm:table-cell">{r.lost}</td>
+                  <td className="px-2 sm:px-3 py-2.5 text-center text-gray-700 hidden md:table-cell">{r.goals_for}</td>
+                  <td className="px-2 sm:px-3 py-2.5 text-center text-gray-700 hidden md:table-cell">{r.goals_against}</td>
+                  <td className="px-2 sm:px-3 py-2.5 text-center text-gray-700">{r.goal_difference}</td>
+                  <td className="px-2 sm:px-3 py-2.5 text-center font-extrabold text-nara-ink">
                     {r.points}
                   </td>
                 </tr>

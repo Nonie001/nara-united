@@ -37,12 +37,12 @@ export default async function AdminSponsorsPage() {
         </CardBody>
       </Card>
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-4 sm:grid-cols-2">
         {sponsors.map((s) => (
           <Card key={s.id}>
             <CardBody>
-              <div className="flex gap-4 items-start">
-                <div className="relative h-20 w-20 bg-gray-50 rounded">
+              <div className="flex gap-3 sm:gap-4 items-start">
+                <div className="relative h-16 w-16 sm:h-20 sm:w-20 shrink-0 bg-gray-50 rounded">
                   {s.logo_url ? (
                     <Image
                       src={s.logo_url}
@@ -54,7 +54,7 @@ export default async function AdminSponsorsPage() {
                   ) : null}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     <h3 className="font-bold truncate">{s.name}</h3>
                     <Badge variant="gold">{s.tier}</Badge>
                   </div>

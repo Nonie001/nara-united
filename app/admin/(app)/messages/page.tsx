@@ -37,26 +37,28 @@ export default async function AdminMessagesPage() {
         {messages.map((m) => (
           <Card key={m.id} className={m.is_read ? "" : "border-l-4 border-nara-gold"}>
             <CardBody>
-              <div className="flex items-start justify-between gap-4">
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4">
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     <h3 className="font-bold">{m.name}</h3>
                     {m.is_read ? null : <Badge variant="gold">ใหม่</Badge>}
                   </div>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-gray-600 break-all">
                     <a href={`mailto:${m.email}`} className="hover:underline">
                       {m.email}
                     </a>
-                    {" · "}
-                    {formatDateTH(m.created_at, "d MMM yyyy HH:mm")}
+                    <span className="hidden sm:inline">{" · "}</span>
+                    <span className="block sm:inline text-xs sm:text-sm">
+                      {formatDateTH(m.created_at, "d MMM yyyy HH:mm")}
+                    </span>
                   </p>
                   {m.subject ? (
                     <p className="mt-1 font-medium">หัวข้อ: {m.subject}</p>
                   ) : null}
-                  <p className="mt-2 whitespace-pre-wrap text-sm">{m.message}</p>
+                  <p className="mt-2 whitespace-pre-wrap text-sm break-words">{m.message}</p>
                 </div>
 
-                <div className="flex flex-col items-end gap-2 shrink-0">
+                <div className="flex flex-row sm:flex-col items-center sm:items-end gap-3 sm:gap-2 shrink-0">
                   <form
                     action={async () => {
                       "use server";

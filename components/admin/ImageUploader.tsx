@@ -53,14 +53,20 @@ export function ImageUploader({
         <img
           src={url}
           alt=""
-          className="h-32 w-32 object-cover rounded-md border border-gray-200"
+          className="h-24 w-24 sm:h-32 sm:w-32 object-cover rounded-md border border-gray-200"
         />
       ) : (
-        <div className="h-32 w-32 rounded-md border border-dashed border-gray-300 grid place-items-center text-gray-400 text-3xl">
+        <div className="h-24 w-24 sm:h-32 sm:w-32 rounded-md border border-dashed border-gray-300 grid place-items-center text-gray-400 text-2xl sm:text-3xl">
           📷
         </div>
       )}
-      <input type="file" accept="image/*" onChange={handleChange} disabled={pending} />
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handleChange}
+        disabled={pending}
+        className="block w-full text-sm text-gray-600 file:mr-3 file:rounded-md file:border-0 file:bg-nara-green file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-white hover:file:bg-nara-green-dark"
+      />
       {pending ? <p className="text-xs text-gray-500">กำลังอัปโหลด...</p> : null}
       {error ? <p className="text-xs text-nara-red">{error}</p> : null}
     </div>

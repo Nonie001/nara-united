@@ -27,8 +27,8 @@ export default async function AdminPlayersList() {
                 <th className="px-3 py-2">รูป</th>
                 <th className="px-3 py-2">เบอร์</th>
                 <th className="px-3 py-2">ชื่อ</th>
-                <th className="px-3 py-2">ตำแหน่ง</th>
-                <th className="px-3 py-2">สถานะ</th>
+                <th className="px-3 py-2 hidden sm:table-cell">ตำแหน่ง</th>
+                <th className="px-3 py-2 hidden md:table-cell">สถานะ</th>
                 <th className="px-3 py-2 text-right">การจัดการ</th>
               </tr>
             </thead>
@@ -51,26 +51,33 @@ export default async function AdminPlayersList() {
                   <td className="px-3 py-2 font-bold">
                     {p.jersey_number ?? "-"}
                   </td>
-                  <td className="px-3 py-2 font-medium">{p.name_th}</td>
-                  <td className="px-3 py-2">{POSITION_LABEL[p.position]}</td>
-                  <td className="px-3 py-2">
+                  <td className="px-3 py-2 font-medium">
+                    {p.name_th}
+                    <div className="sm:hidden mt-0.5 text-xs font-normal text-gray-500">
+                      {POSITION_LABEL[p.position]}
+                    </div>
+                  </td>
+                  <td className="px-3 py-2 hidden sm:table-cell">{POSITION_LABEL[p.position]}</td>
+                  <td className="px-3 py-2 hidden md:table-cell">
                     <Badge variant={p.is_active ? "win" : "default"}>
                       {p.is_active ? "active" : "inactive"}
                     </Badge>
                   </td>
-                  <td className="px-3 py-2 text-right space-x-3">
-                    <Link
-                      href={`/admin/players/${p.id}`}
-                      className="text-nara-green hover:underline"
-                    >
-                      แก้ไข
-                    </Link>
-                    <DeleteButton
-                      action={async () => {
-                        "use server";
-                        await deletePlayerAction(p.id);
-                      }}
-                    />
+                  <td className="px-3 py-2 text-right whitespace-nowrap">
+                    <div className="inline-flex items-center gap-3">
+                      <Link
+                        href={`/admin/players/${p.id}`}
+                        className="text-nara-green hover:underline"
+                      >
+                        แก้ไข
+                      </Link>
+                      <DeleteButton
+                        action={async () => {
+                          "use server";
+                          await deletePlayerAction(p.id);
+                        }}
+                      />
+                    </div>
                   </td>
                 </tr>
               ))}

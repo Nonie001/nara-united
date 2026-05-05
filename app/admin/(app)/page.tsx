@@ -46,19 +46,19 @@ export default async function AdminDashboard() {
   return (
     <div className="space-y-6">
       <header>
-        <h1 className="font-display text-2xl font-bold text-nara-green-dark">
+        <h1 className="font-display text-xl sm:text-2xl font-bold text-nara-green-dark">
           ภาพรวมระบบ
         </h1>
         <p className="text-sm text-gray-600">ยินดีต้อนรับเข้าสู่หลังบ้าน Nara United</p>
       </header>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {tiles.map((t) => (
           <Link key={t.href} href={t.href}>
             <Card className="hover:shadow-md transition">
               <CardBody>
-                <div className="text-sm text-gray-500">{t.label}</div>
-                <div className="mt-1 font-display text-3xl font-extrabold text-nara-green-dark">
+                <div className="text-xs sm:text-sm text-gray-500">{t.label}</div>
+                <div className="mt-1 font-display text-2xl sm:text-3xl font-extrabold text-nara-green-dark">
                   {t.value.toLocaleString("th-TH")}
                 </div>
               </CardBody>

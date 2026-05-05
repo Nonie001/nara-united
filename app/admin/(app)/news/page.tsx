@@ -25,42 +25,47 @@ export default async function AdminNewsList() {
             <thead className="bg-gray-50 text-left text-gray-600">
               <tr>
                 <th className="px-3 py-2">หัวข้อ</th>
-                <th className="px-3 py-2">หมวดหมู่</th>
+                <th className="px-3 py-2 hidden md:table-cell">หมวดหมู่</th>
                 <th className="px-3 py-2">สถานะ</th>
-                <th className="px-3 py-2">เผยแพร่</th>
-                <th className="px-3 py-2">ดู</th>
+                <th className="px-3 py-2 hidden sm:table-cell">เผยแพร่</th>
+                <th className="px-3 py-2 hidden sm:table-cell">ดู</th>
                 <th className="px-3 py-2 text-right">การจัดการ</th>
               </tr>
             </thead>
             <tbody>
               {items.map((n) => (
                 <tr key={n.id} className="border-t border-gray-100">
-                  <td className="px-3 py-2 font-medium max-w-md truncate">
+                  <td className="px-3 py-2 font-medium max-w-[16rem] sm:max-w-md truncate">
                     {n.title_th}
+                    <div className="md:hidden mt-0.5 text-xs font-normal text-gray-500">
+                      {CATEGORY_LABEL[n.category]}
+                    </div>
                   </td>
-                  <td className="px-3 py-2">{CATEGORY_LABEL[n.category]}</td>
+                  <td className="px-3 py-2 hidden md:table-cell">{CATEGORY_LABEL[n.category]}</td>
                   <td className="px-3 py-2">
                     <Badge variant={n.is_published ? "win" : "default"}>
                       {n.is_published ? "เผยแพร่แล้ว" : "ฉบับร่าง"}
                     </Badge>
                   </td>
-                  <td className="px-3 py-2">
+                  <td className="px-3 py-2 hidden sm:table-cell whitespace-nowrap">
                     {n.published_at ? formatDateTH(n.published_at) : "-"}
                   </td>
-                  <td className="px-3 py-2">{n.views ?? 0}</td>
-                  <td className="px-3 py-2 text-right space-x-3">
-                    <Link
-                      href={`/admin/news/${n.id}`}
-                      className="text-nara-green hover:underline"
-                    >
-                      แก้ไข
-                    </Link>
-                    <DeleteButton
-                      action={async () => {
-                        "use server";
-                        await deleteNewsAction(n.id);
-                      }}
-                    />
+                  <td className="px-3 py-2 hidden sm:table-cell">{n.views ?? 0}</td>
+                  <td className="px-3 py-2 text-right whitespace-nowrap">
+                    <div className="inline-flex items-center gap-3">
+                      <Link
+                        href={`/admin/news/${n.id}`}
+                        className="text-nara-green hover:underline"
+                      >
+                        แก้ไข
+                      </Link>
+                      <DeleteButton
+                        action={async () => {
+                          "use server";
+                          await deleteNewsAction(n.id);
+                        }}
+                      />
+                    </div>
                   </td>
                 </tr>
               ))}
