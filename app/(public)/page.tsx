@@ -34,7 +34,7 @@ export default async function HomePage() {
       <HeroBanner />
 
       {/* MATCH HERO + LATEST RESULT */}
-      <Container className="-mt-10 sm:-mt-16 relative z-10 pb-16">
+      <Container className="mt-6 sm:-mt-16 relative z-10 pb-16">
         <div className="grid gap-6 lg:grid-cols-3">
           <Reveal direction="up" className="lg:col-span-2">
             <MatchHero match={nextMatch} />
